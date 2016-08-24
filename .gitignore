@@ -1,0 +1,11 @@
+# Models
+*.prototxt
+*.caffemodel
+
+# Compiled/cached Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Temporaries
+.ipynb_checkpoints/

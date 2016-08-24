@@ -1,0 +1,4 @@
+[submodule "caffe"]
+	path = caffe
+	url = git@github.com:shelhamer/clockwork-fcn.git
+	branch = caffe-clockwork
