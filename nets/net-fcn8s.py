@@ -96,7 +96,7 @@ def make_nets():
     with open('nyud-fcn8s.prototxt', 'w') as f:
         f.write(str(fcn('deploy', 40)))
     with open('cityscapes-fcn8s.prototxt', 'w') as f:
-        f.write(str(fcn('deploy', 20)))  # TODO should be 19
+        f.write(str(fcn('deploy', 19)))
 
 if __name__ == '__main__':
     make_nets()
