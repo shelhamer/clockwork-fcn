@@ -11,14 +11,12 @@ class cityscapes:
     def __init__(self, data_path):
         # data_path something like /data2/cityscapes
         self.dir = data_path
-        self.classes = ['road', 'sidewalk', 'person', 'rider', 'car', 'truck',
-                        'bus', 'on rails', 'motorcycle', 'bicycle', 'building',
-                        'wall', 'fence', 'pole', 'traffic sign', 'traffic light',
-                        'vegetation', 'terrain', 'sky']
         self.mean = np.array((72.78044, 83.21195, 73.45286), dtype=np.float32)
         # import cityscapes label helper and set up label mappings
         sys.path.insert(0, '{}/scripts/helpers/'.format(self.dir))
         labels = __import__('labels')
+        labels_and_ids = [(l.name, l.trainId) for l in labels.labels if l.trainId >= 0 and l.trainId < 255]
+        self.classes = [l[0] for l in sorted(labels_and_ids, key=lambda x: x[1])]  # classes in ID order == network output order
         self.id2trainId = {label.id: label.trainId for label in labels.labels}  # dictionary mapping from raw IDs to train IDs
         self.trainId2color = {label.trainId: label.color for label in labels.labels}  # dictionary mapping train IDs to colors as 3-tuples
 
