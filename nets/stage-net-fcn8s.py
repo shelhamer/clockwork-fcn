@@ -59,8 +59,8 @@ def fcn(split, num_classes=None):
 
     n.upscore2 = L.Deconvolution(
         n.score_fr,
-        convolution_param=dict(num_output=num_classes, kernel_size=4, stride=2,
-            bias_term=False),
+        convolution_param=dict(num_output=num_classes, group=num_classes,
+            kernel_size=4, stride=2, bias_term=False),
         param=[dict(lr_mult=0)])
 
     n.score_pool4c = crop(n.score_pool4, n.upscore2)
@@ -69,8 +69,8 @@ def fcn(split, num_classes=None):
 
     n.upscore_pool4 = L.Deconvolution(
         n.fuse_pool4,
-        convolution_param=dict(num_output=num_classes, kernel_size=4, stride=2,
-            bias_term=False),
+        convolution_param=dict(num_output=num_classes, group=num_classes,
+            kernel_size=4, stride=2, bias_term=False),
         param=[dict(lr_mult=0)])
 
     n.score_pool3c = crop(n.score_pool3, n.upscore_pool4)
@@ -80,8 +80,8 @@ def fcn(split, num_classes=None):
 
     n.upscore8 = L.Deconvolution(
         n.fuse_pool3,
-        convolution_param=dict(num_output=num_classes, kernel_size=16, stride=8,
-            bias_term=False),
+        convolution_param=dict(num_output=num_classes, group=num_classes,
+            kernel_size=16, stride=8, bias_term=False),
         param=[dict(lr_mult=0)])
 
     n.score = crop(n.upscore8, n.data)
